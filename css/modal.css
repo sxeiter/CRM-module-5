@@ -6,6 +6,8 @@
   max-width: 792px;
   top: 10px;
   left: 30%;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal_top {
