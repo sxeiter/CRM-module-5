@@ -1,7 +1,14 @@
 const modalTitle = document.querySelector('.modal__title');
-const modalClose = document.querySelector('.modal__close');
+console.log('modalTitle: ', modalTitle);
+const modalCloseBtn = document.querySelector('.modal__close');
+console.log('modalCloseBtn: ', modalCloseBtn);
 const vendorCodeId = document.querySelector('.vendor-code__id');
+console.log('vendorCodeId: ', vendorCodeId);
 const modalForm = document.querySelector('.modal__close');
+console.log('modalForm: ', modalForm);
 const modalCheckbox = document.querySelector('.modal__checkbox');
+console.log('modalCheckbox: ', modalCheckbox);
 const modalInputDiscount = document.querySelector('.modal__input_discount');
+console.log('modalInputDiscount: ', modalInputDiscount);
 const modalTotalPrice = document.querySelector('.modal__total-price');
+console.log('modalTotalPrice: ', modalTotalPrice);
