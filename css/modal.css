@@ -4,8 +4,8 @@
   position: absolute;
   padding: 32px 106px 39px;
   max-width: 792px;
-  top: 400px;
-  right: 150px;
+  top: 10px;
+  left: 30%;
 }
 
 .modal_top {
