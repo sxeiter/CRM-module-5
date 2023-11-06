@@ -1,17 +1,17 @@
 .modal__error {
   width: 350px;
   height: 350px;
-  position: absolute;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  margin: 0 auto;
   background-color: #f2f0f9;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
-  top: 50px;
-  left: 40%;
-  display: none;
+  margin: 0 auto;
+  position: absolute;
+  display: ;
+  top: 128px;
+  left: 29%;
 }
 
 .modal__error-text--wrong {

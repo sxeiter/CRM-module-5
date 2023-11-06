@@ -4,7 +4,7 @@ const modalCloseBtn = document.querySelector('.modal__close');
 console.log('modalCloseBtn: ', modalCloseBtn);
 const vendorCodeId = document.querySelector('.vendor-code__id');
 console.log('vendorCodeId: ', vendorCodeId);
-const modalForm = document.querySelector('.modal__close');
+const modalForm = document.querySelector('.modal__form');
 console.log('modalForm: ', modalForm);
 const modalCheckbox = document.querySelector('.modal__checkbox');
 console.log('modalCheckbox: ', modalCheckbox);
