@@ -1,16 +1,5 @@
 'use strict';
 
-const modalTitle = document.querySelector('.modal__title');
-const modalCloseBtn = document.querySelector('.modal__close');
-const vendorCodeId = document.querySelector('.vendor-code__id');
-const modalForm = document.querySelector('.modal__form');
-const modalCheckbox = document.querySelector('.modal__checkbox');
-const modalInputDiscount = document.querySelector('.modal__input_discount');
-const modalTotalPrice = document.querySelector('.modal__total-price');
-
-const overlayNone = document.querySelector('.overlay');
-overlayNone.classList.remove('overlay__active');
-
 const goods = [
   {
     'id': 253842678,
@@ -70,30 +59,22 @@ const goods = [
   },
 ];
 
-const createRow = ({id, title, price, category, count, units}) => {
+const createRow = (obj) => {
   const tr = document.createElement('tr');
   tr.insertAdjacentHTML('beforeend', `
-  
-  <td class="table__cell">${id}</td>
-  <td
-    class="table__cell table__cell_left table__cell_name"
-    data-id="24601654816512"
-  >
-    ${title}
-  </td>
-  <td class="table__cell table__cell_left">${category}</td>
-  <td class="table__cell">${units}</td>
-  <td class="table__cell">${count}</td>
-  <td class="table__cell">${price}</td>
-  <td class="table__cell">${price * count}</td>
-  <td class="table__cell table__cell_btn-wrapper">
-    <button class="table__btn table__btn_pic"></button>
-    <button class="table__btn table__btn_edit"></button>
-    <button class="table__btn table__btn_del"></button>
-  </td>
-    
-  
-    `);
+
+    <td class="td">${obj.id}</td>
+    <td class="td">${obj.title}</td>
+    <td class="td">${obj.price}</td>
+    <td class="td">${obj.description}</td>
+    <td class="td">${obj.category}</td>
+    <td class="td">${obj.discont}</td>
+    <td class="td">${obj.count}</td>
+    <td class="td">${obj.units}</td>
+    <td class="td">${obj.images}</td>
+
+
+  `);
   return tr;
 };
 
@@ -102,4 +83,6 @@ const renderGoods = (arr) => {
   document.querySelector('.table__body').append(...rows);
 };
 
+
 renderGoods(goods);
+console.log(renderGoods);
