@@ -3,15 +3,15 @@
 const modalTitle = document.querySelector('.modal__title');
 const modalCloseBtn = document.querySelector('.modal__close');
 const vendorCodeId = document.querySelector('.vendor-code__id');
-const modalForm = document.querySelector('.modal__form');
+const modalForm = document.querySelector('.overlay__modal.modal');
 const modalCheckbox = document.querySelector('.modal__checkbox');
 const modalInputDiscount = document.querySelector('.modal__input_discount');
 const modalTotalPrice = document.querySelector('.modal__total-price');
 const buttonAdd = document.querySelector('.panel__add-goods');
 
-const modalOverlay = document.querySelector('.overlay.overlay__active');
+const modalOverlay = document.querySelector('.overlay');
 modalOverlay.classList.remove('overlay__active');
-const ooo = document.querySelector('.overlay');
+
 
 const goods = [
   {
@@ -111,7 +111,7 @@ buttonAdd.addEventListener('click', () => {
   modalOverlay.classList.add('overlay__active');
 });
 
-modalOverlay.addEventListener('click', e => {
+modalForm.addEventListener('click', e => {
   e.stopPropagation();
 });
 
