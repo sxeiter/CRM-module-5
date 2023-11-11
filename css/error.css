@@ -14,9 +14,9 @@
   left: 29%;
 }
 
-.overlay__error {
+/*.overlay__error {
   display: flex;
-}
+}*/
 
 .modal__error-text--wrong {
   font-weight: 700;
@@ -25,4 +25,15 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #6e6893;
+}
+
+.modal__error-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background-color: transparent;
+  border: none;
+  color: #6e6893;
+  width: 20px;
+  height: 20px;
 }

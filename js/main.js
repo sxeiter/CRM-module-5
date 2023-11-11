@@ -7,9 +7,11 @@ const modalForm = document.querySelector('.modal__form');
 const modalCheckbox = document.querySelector('.modal__checkbox');
 const modalInputDiscount = document.querySelector('.modal__input_discount');
 const modalTotalPrice = document.querySelector('.modal__total-price');
+const buttonAdd = document.querySelector('.panel__add-goods');
 
-const overlayNone = document.querySelector('.overlay');
-overlayNone.classList.remove('overlay__active');
+const modalOverlay = document.querySelector('.overlay.overlay__active');
+modalOverlay.classList.remove('overlay__active');
+const ooo = document.querySelector('.overlay');
 
 const goods = [
   {
@@ -103,3 +105,20 @@ const renderGoods = (arr) => {
 };
 
 renderGoods(goods);
+
+
+buttonAdd.addEventListener('click', () => {
+  modalOverlay.classList.add('overlay__active');
+});
+
+modalOverlay.addEventListener('click', e => {
+  e.stopPropagation();
+});
+
+modalOverlay.addEventListener('click', (e) => {
+  modalOverlay.classList.remove('overlay__active');
+});
+
+modalCloseBtn.addEventListener('click', () => {
+  modalOverlay.classList.remove('overlay__active');
+});
