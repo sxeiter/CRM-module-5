@@ -74,6 +74,7 @@ const goods = [
 
 const createRow = ({id, title, price, category, count, units}) => {
   const tr = document.createElement('tr');
+  tr.classList.add('row');
   tr.insertAdjacentHTML('beforeend', `
   
   <td class="table__cell">${id}</td>
@@ -123,16 +124,29 @@ modalCloseBtn.addEventListener('click', () => {
   modalOverlay.classList.remove('overlay__active');
 });
 
-const deleteRow = () => {
-  const tr = document.querySelectorAll('tr');
-  tr.forEach(e => e.classList.add('row'));
 
+const removeGoods = (dataId) => {
+  goods.forEach((item, index, array) => {
+    if (item.id === +dataId) {
+      array.splice(index, 1);
+    }
+  });
+  return goods;
+};
+
+const deleteRow = () => {
   const tBody = document.querySelector('.table__body');
   tBody.addEventListener('click', e => {
     const target = e.target;
-    if (e.target.closest('.table__btn.table__btn_del')) {
-      target.closest('.row').remove();
+    if (target.closest('.table__btn.table__btn_del')) {
+      const closestRow = target.closest('tr');
+      const rowProductId = +closestRow.firstElementChild.textContent;
+      closestRow.remove();
+      removeGoods(rowProductId);
+      console.log(goods);
     }
   });
 };
-deleteRow();
+deleteRow(goods);
+
+
