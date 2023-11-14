@@ -111,14 +111,28 @@ buttonAdd.addEventListener('click', () => {
   modalOverlay.classList.add('overlay__active');
 });
 
-modalForm.addEventListener('click', e => {
-  e.stopPropagation();
-});
-
-modalOverlay.addEventListener('click', (e) => {
-  modalOverlay.classList.remove('overlay__active');
+modalOverlay.addEventListener('click', e => {
+  const target = e.target;
+  if (target === modalOverlay ||
+    target.closest('.modal__close')) {
+    modalOverlay.classList.remove('overlay__active');
+  }
 });
 
 modalCloseBtn.addEventListener('click', () => {
   modalOverlay.classList.remove('overlay__active');
 });
+
+const deleteRow = () => {
+  const tr = document.querySelectorAll('tr');
+  tr.forEach(e => e.classList.add('row'));
+
+  const tBody = document.querySelector('.table__body');
+  tBody.addEventListener('click', e => {
+    const target = e.target;
+    if (e.target.closest('.table__btn.table__btn_del')) {
+      target.closest('.row').remove();
+    }
+  });
+};
+deleteRow();
