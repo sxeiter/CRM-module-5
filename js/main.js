@@ -5,9 +5,12 @@ const modalCloseBtn = document.querySelector('.modal__close');
 const vendorCodeId = document.querySelector('.vendor-code__id');
 const modalForm = document.querySelector('.overlay__modal.modal');
 const modalCheckbox = document.querySelector('.modal__checkbox');
-const modalInputDiscount = document.querySelector('.modal__input_discount');
-const modalTotalPrice = document.querySelector('.modal__total-price');
 const buttonAdd = document.querySelector('.panel__add-goods');
+const form = document.getElementById('productForm');
+const discountInput = document.querySelector('.modal__input_discount');
+const countInput = document.getElementById('count');
+const priceInput = document.getElementById('price');
+const totalPrice = document.querySelector('.modal__total-price');
 
 const modalOverlay = document.querySelector('.overlay');
 modalOverlay.classList.remove('overlay__active');
@@ -150,3 +153,31 @@ const deleteRow = () => {
 deleteRow(goods);
 
 
+modalCheckbox.addEventListener('change', () => {
+  if (modalCheckbox.checked) {
+    discountInput.disabled = false;
+  } else {
+    discountInput.value = '';
+    discountInput.disabled = true;
+  }
+});
+
+
+const updateTotalPrice = () => {
+  const count = parseInt(countInput.value);
+  const price = parseInt(priceInput.value);
+  const discount = parseInt(discountInput.value);
+  if (!isNaN(count) && !isNaN(price)) {
+    const total = count * price - (100 - discount) / 100;
+    totalPrice.textContent = '$ ' + total.toFixed(2);
+  }
+};
+
+countInput.addEventListener('input', updateTotalPrice);
+priceInput.addEventListener('input', updateTotalPrice);
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const newItem = Object.fromEntries(formData);
+});
