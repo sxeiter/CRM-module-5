@@ -7,11 +7,11 @@ const modalForm = document.querySelector('.overlay__modal.modal');
 const modalCheckbox = document.querySelector('.modal__checkbox');
 const buttonAdd = document.querySelector('.panel__add-goods');
 const form = document.getElementById('productForm');
-const discountInput = document.querySelector('.modal__input_discount');
+// const discountInput = document.querySelector('.modal__input_discount');
 const countInput = document.getElementById('count');
-const priceInput = document.getElementById('price');
-const totalPrice = document.querySelector('.modal__total-price');
-
+// const priceInput = document.getElementById('price');
+// const modalTotalPrice = document.querySelector('.modal__total-price');
+const tableBody = document.querySelector('.table__body');
 const modalOverlay = document.querySelector('.overlay');
 modalOverlay.classList.remove('overlay__active');
 
@@ -91,7 +91,7 @@ const createRow = ({id, title, price, category, count, units}) => {
   <td class="table__cell">${units}</td>
   <td class="table__cell">${count}</td>
   <td class="table__cell">${price}</td>
-  <td class="table__cell">${price * count}</td>
+  <td class="table__cell table__cell-total">${price * count}</td>
   <td class="table__cell table__cell_btn-wrapper">
     <button class="table__btn table__btn_pic"></button>
     <button class="table__btn table__btn_edit"></button>
@@ -153,6 +153,24 @@ const deleteRow = () => {
 deleteRow(goods);
 
 
+/*
+
+const addItem = () => {
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const newItem = Object.fromEntries(formData);
+
+    form.reset();
+  });
+};
+addItem();
+*/
+const modalCount = document.querySelector('#count');
+const priceInput = document.querySelector('#price');
+const discountInput = document.querySelector('.modal__input_discount');
+const modalTotalPrice = document.querySelector('.modal__total-price');
+
 modalCheckbox.addEventListener('change', () => {
   if (modalCheckbox.checked) {
     discountInput.disabled = false;
@@ -162,22 +180,42 @@ modalCheckbox.addEventListener('change', () => {
   }
 });
 
-
-const updateTotalPrice = () => {
-  const count = parseInt(countInput.value);
-  const price = parseInt(priceInput.value);
-  const discount = parseInt(discountInput.value);
-  if (!isNaN(count) && !isNaN(price)) {
-    const total = count * price - (100 - discount) / 100;
-    totalPrice.textContent = '$ ' + total.toFixed(2);
-  }
+const calcModalTotalPrice = () => {
+  const count = modalCount.value;
+  const discount = discountInput.value;
+  const price = priceInput.value;
+  const priceWithDiscount = (price - (price * discount / 100)) * count;
+  modalTotalPrice.innerHTML = priceWithDiscount;
 };
 
-countInput.addEventListener('input', updateTotalPrice);
-priceInput.addEventListener('input', updateTotalPrice);
+discountInput.addEventListener('input', calcModalTotalPrice);
+priceInput.addEventListener('input', calcModalTotalPrice);
 
-form.addEventListener('submit', e => {
+const tableTotalPrice = document.querySelector('.cms__total-price');
+const tableCellTotal = document.querySelector('.table__cell-total');
+
+const calcTableTotalPrice = () => {
+  let total = 0;
+
+  for (let i = 0; i < tableCellTotal.length; i++) {
+    const price = parseInt(tableCellTotal[i].innerHTML);
+    total += price;
+  }
+
+  tableTotalPrice.innerHTML = total;
+};
+
+calcTableTotalPrice();
+
+
+form.addEventListener('submit', (e) => {
   e.preventDefault();
   const formData = new FormData(e.target);
   const newItem = Object.fromEntries(formData);
+
+  createRow(newItem);
+
+
+  form.reset();
 });
+
