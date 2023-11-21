@@ -39,7 +39,12 @@
     <link rel="stylesheet" href="css/index.css" />
 
     <title>CMS</title>
-    <script src="js/main.js" defer></script>
+    <script type="module" src="js/main.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        crmInit();
+      });
+    </script>
   </head>
 
   <body>
