@@ -198,14 +198,12 @@ modalCheckbox.addEventListener('change', () => {
 
 const totalSum = () => {
   const tableTotalPrice = document.querySelector('.cms__total-price');
-  const tableCellTotal = document.querySelectorAll('.table__cell-total');
 
   let total = 0;
-  tableCellTotal.forEach(item => {
-    const value = parseInt(item.textContent);
-    if (!isNaN(value)) {
-      total += value;
-    }
+  goods.forEach(item => {
+    const price = item.price;
+    const count = item.count;
+    total += price * count;
   });
   tableTotalPrice.textContent = `₽ ${total}`;
 };
