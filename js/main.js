@@ -106,6 +106,7 @@ renderGoods(goods);
 const modalControl = () => {
   const openModal = () => {
     modalOverlay.classList.add('overlay__active');
+    modalTotalPrice.textContent = '0';
   };
 
   const closeModal = () => {
@@ -155,6 +156,7 @@ const deleteRow = () => {
       closestRow.remove();
       removeGoods(rowProductId);
       console.log(goods);
+      totalSum();
     }
   });
 };
@@ -211,8 +213,11 @@ const totalSum = () => {
 
 const addItemPage = (newItem) => {
   tableBody.append(createRow(newItem));
+  goods.push(newItem);
   totalSum();
+  console.log(goods);
 };
+console.log(goods);
 
 const form = document.querySelector('.modal__form');
 form.addEventListener('submit', e => {
@@ -222,7 +227,6 @@ form.addEventListener('submit', e => {
   newItem.id = createId();
   addItemPage(newItem, goods);
   calcModalTotalPrice();
-
   form.reset();
   closeModal();
 });

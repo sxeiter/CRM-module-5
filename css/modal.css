@@ -325,6 +325,10 @@
 }
 
 @media (max-width: 1000px) {
+  .modal {
+    height: 950px;
+  }
+
   .modal__fieldset {
     margin-bottom: 28px;
     display: grid;
