@@ -1,16 +1,8 @@
 'use strict';
 
-const modalTitle = document.querySelector('.modal__title');
 const modalCloseBtn = document.querySelector('.modal__close');
-const vendorCodeId = document.querySelector('.vendor-code__id');
-const modalForm = document.querySelector('.overlay__modal.modal');
 const modalCheckbox = document.querySelector('.modal__checkbox');
 const buttonAdd = document.querySelector('.panel__add-goods');
-const form = document.getElementById('productForm');
-// const discountInput = document.querySelector('.modal__input_discount');
-const countInput = document.getElementById('count');
-// const priceInput = document.getElementById('price');
-// const modalTotalPrice = document.querySelector('.modal__total-price');
 const tableBody = document.querySelector('.table__body');
 const modalOverlay = document.querySelector('.overlay');
 modalOverlay.classList.remove('overlay__active');
@@ -75,7 +67,7 @@ const goods = [
   },
 ];
 
-const createRow = ({id, title, price, category, count, units}) => {
+const createRow = ({id, title, price, category, count, units, discount}) => {
   const tr = document.createElement('tr');
   tr.classList.add('row');
   tr.insertAdjacentHTML('beforeend', `
@@ -91,7 +83,7 @@ const createRow = ({id, title, price, category, count, units}) => {
   <td class="table__cell">${units}</td>
   <td class="table__cell">${count}</td>
   <td class="table__cell">${price}</td>
-  <td class="table__cell table__cell-total">${price * count}</td>
+  <td class="table__cell table__cell-total">${count * price}</td>
   <td class="table__cell table__cell_btn-wrapper">
     <button class="table__btn table__btn_pic"></button>
     <button class="table__btn table__btn_edit"></button>
@@ -100,6 +92,7 @@ const createRow = ({id, title, price, category, count, units}) => {
     
   
     `);
+
   return tr;
 };
 
@@ -110,23 +103,38 @@ const renderGoods = (arr) => {
 
 renderGoods(goods);
 
+const modalControl = () => {
+  const openModal = () => {
+    modalOverlay.classList.add('overlay__active');
+  };
 
-buttonAdd.addEventListener('click', () => {
-  modalOverlay.classList.add('overlay__active');
-});
-
-modalOverlay.addEventListener('click', e => {
-  const target = e.target;
-  if (target === modalOverlay ||
-    target.closest('.modal__close')) {
+  const closeModal = () => {
     modalOverlay.classList.remove('overlay__active');
-  }
-});
+  };
 
-modalCloseBtn.addEventListener('click', () => {
-  modalOverlay.classList.remove('overlay__active');
-});
+  buttonAdd.addEventListener('click', openModal);
 
+  modalOverlay.addEventListener('click', e => {
+    const target = e.target;
+    if (target === modalOverlay ||
+     target.closest('.modal__close')) {
+      closeModal();
+    }
+  });
+  return {
+    closeModal,
+  };
+};
+
+const {closeModal} = modalControl();
+
+const deleteControl = () => {
+  modalCloseBtn.addEventListener('click', () => {
+    modalOverlay.classList.remove('overlay__active');
+  });
+};
+
+deleteControl();
 
 const removeGoods = (dataId) => {
   goods.forEach((item, index, array) => {
@@ -153,23 +161,28 @@ const deleteRow = () => {
 deleteRow(goods);
 
 
-/*
-
-const addItem = () => {
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const newItem = Object.fromEntries(formData);
-
-    form.reset();
-  });
+const createId = () => {
+  const id = Math.floor(Math.random() * 1000000);
+  return id;
 };
-addItem();
-*/
+
+
 const modalCount = document.querySelector('#count');
 const priceInput = document.querySelector('#price');
 const discountInput = document.querySelector('.modal__input_discount');
 const modalTotalPrice = document.querySelector('.modal__total-price');
+
+const calcModalTotalPrice = () => {
+  const count = modalCount.value;
+  const discount = discountInput.value;
+  const price = priceInput.value;
+  const priceWithDiscount = (price - (price * discount / 100)) * count;
+  modalTotalPrice.innerHTML = priceWithDiscount;
+  return {priceWithDiscount};
+};
+
+discountInput.addEventListener('change', calcModalTotalPrice);
+priceInput.addEventListener('change', calcModalTotalPrice);
 
 modalCheckbox.addEventListener('change', () => {
   if (modalCheckbox.checked) {
@@ -180,42 +193,38 @@ modalCheckbox.addEventListener('change', () => {
   }
 });
 
-const calcModalTotalPrice = () => {
-  const count = modalCount.value;
-  const discount = discountInput.value;
-  const price = priceInput.value;
-  const priceWithDiscount = (price - (price * discount / 100)) * count;
-  modalTotalPrice.innerHTML = priceWithDiscount;
-};
 
-discountInput.addEventListener('input', calcModalTotalPrice);
-priceInput.addEventListener('input', calcModalTotalPrice);
+const totalSum = () => {
+  const tableTotalPrice = document.querySelector('.cms__total-price');
+  const tableCellTotal = document.querySelectorAll('.table__cell-total');
 
-const tableTotalPrice = document.querySelector('.cms__total-price');
-const tableCellTotal = document.querySelector('.table__cell-total');
-
-const calcTableTotalPrice = () => {
   let total = 0;
-
-  for (let i = 0; i < tableCellTotal.length; i++) {
-    const price = parseInt(tableCellTotal[i].innerHTML);
-    total += price;
-  }
-
-  tableTotalPrice.innerHTML = total;
+  tableCellTotal.forEach(item => {
+    const value = parseInt(item.textContent);
+    if (!isNaN(value)) {
+      total += value;
+    }
+  });
+  tableTotalPrice.textContent = `₽ ${total}`;
 };
 
-calcTableTotalPrice();
 
+const addItemPage = (newItem) => {
+  tableBody.append(createRow(newItem));
+  totalSum();
+};
 
-form.addEventListener('submit', (e) => {
+const form = document.querySelector('.modal__form');
+form.addEventListener('submit', e => {
   e.preventDefault();
   const formData = new FormData(e.target);
   const newItem = Object.fromEntries(formData);
-
-  createRow(newItem);
-
+  newItem.id = createId();
+  addItemPage(newItem, goods);
+  calcModalTotalPrice();
 
   form.reset();
+  closeModal();
 });
 
+totalSum();
