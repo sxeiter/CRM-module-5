@@ -1,7 +1,16 @@
+import getElements from './elements';
+
+const {
+  buttonAdd,
+  modalOverlay,
+  modalTotalPrice,
+  modalCloseBtn,
+} = getElements;
+
 const modalControl = () => {
-  const buttonAdd = document.querySelector('.panel__add-goods');
-  const modalOverlay = document.querySelector('.overlay');
-  const modalTotalPrice = document.querySelector('.modal__total-price');
+  // const buttonAdd = document.querySelector('.panel__add-goods');
+  // const modalOverlay = document.querySelector('.overlay');
+  // const modalTotalPrice = document.querySelector('.modal__total-price');
   const openModal = () => {
     modalOverlay.classList.add('overlay__active');
     modalTotalPrice.textContent = '0';
@@ -28,8 +37,8 @@ const modalControl = () => {
 const {closeModal} = modalControl();
 
 const deleteControl = () => {// не могу импортировать
-  const modalCloseBtn = document.querySelector('.modal__close');
-  const modalOverlay = document.querySelector('.overlay');
+  // const modalCloseBtn = document.querySelector('.modal__close');
+  // const modalOverlay = document.querySelector('.overlay');
   modalCloseBtn.addEventListener('click', () => {
     modalOverlay.classList.remove('overlay__active');
   });

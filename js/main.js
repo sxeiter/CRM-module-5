@@ -1,11 +1,17 @@
 import {goods} from './modules/goods.js';
 import {createRow, createId} from './modules/createElements.js';
 import {closeModal} from './modules/modalControl.js';
-import {calcModalTotalPrice} from './modules/calcModal.js';
+import {calcModalTotalPrice, listener} from './modules/calcModal.js';
+import getElements from './elements';
 
+const {
+  tableTotalPrice,
+  tBody,
+  form,
+} = getElements;
 
 const totalSum = () => {
-  const tableTotalPrice = document.querySelector('.cms__total-price');
+  // const tableTotalPrice = document.querySelector('.cms__total-price');
 
   let total = 0;
   goods.forEach(item => {
@@ -15,7 +21,7 @@ const totalSum = () => {
   });
   tableTotalPrice.textContent = `₽ ${total}`;
 };
-totalSum();
+
 
 const removeGoods = (dataId) => {// не могу импортировать
   goods.forEach((item, index, array) => {
@@ -27,7 +33,7 @@ const removeGoods = (dataId) => {// не могу импортировать
 };
 
 const deleteRow = () => {// не могу импортировать
-  const tBody = document.querySelector('.table__body');
+  // const tBody = document.querySelector('.table__body');
   tBody.addEventListener('click', e => {
     const target = e.target;
     if (target.closest('.table__btn.table__btn_del')) {
@@ -40,10 +46,10 @@ const deleteRow = () => {// не могу импортировать
     }
   });
 };
-deleteRow(goods);
+
 
 const addItemPage = (newItem) => {
-  const tBody = document.querySelector('.table__body');
+  // const tBody = document.querySelector('.table__body');
   tBody.append(createRow(newItem));
   goods.push(newItem);
   totalSum();
@@ -52,7 +58,7 @@ const addItemPage = (newItem) => {
 console.log(goods);
 
 const addItem = () => {
-  const form = document.querySelector('.modal__form');
+  // const form = document.querySelector('.modal__form');
   form.addEventListener('submit', e => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -66,14 +72,17 @@ const addItem = () => {
 };
 addItem();
 
+const renderGoods = (arr) => {// не могу импортировать
+  const rows = arr.map(createRow);
+  document.querySelector('.table__body').append(...rows);
+};
+
 {
   const init = () => {
-    const renderGoods = (arr) => {// не могу импортировать
-      const rows = arr.map(createRow);
-      document.querySelector('.table__body').append(...rows);
-    };
-
+    deleteRow(goods);
+    totalSum();
     renderGoods(goods);
+    listener();
   };
   window.crmInit = init;
 }
