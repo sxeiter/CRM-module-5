@@ -1,5 +1,3 @@
-
-
 const modalCloseBtn = document.querySelector('.modal__close');
 const modalCheckbox = document.querySelector('.modal__checkbox');
 const buttonAdd = document.querySelector('.panel__add-goods');
