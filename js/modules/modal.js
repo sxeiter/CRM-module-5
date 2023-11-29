@@ -21,7 +21,7 @@ const {
 const modalControl = () => {
   const openModal = () => {
     modalOverlay.classList.add('overlay__active');
-    modalTotalPrice.textContent = '0';
+    modalTotalPrice.textContent = '$ 0';
   };
 
   const closeModal = () => {
@@ -39,18 +39,17 @@ const modalControl = () => {
   });
   return {
     closeModal,
+    openModal,
   };
 };
 
 const {closeModal, openModal} = modalControl();
 
-const deleteControl = () => {
+export const deleteControl = () => {
   modalCloseBtn.addEventListener('click', () => {
     modalOverlay.classList.remove('overlay__active');
   });
 };
-
-deleteControl();
 
 
 const addItemPage = (newItem) => {
@@ -60,7 +59,7 @@ const addItemPage = (newItem) => {
 
 console.log(goods);
 
-const addItem = () => {
+export const addItem = () => {
   form.addEventListener('submit', e => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -72,20 +71,20 @@ const addItem = () => {
     getTotalTable(goods);
   });
 };
-addItem();
+
+export const getDiscount = () => {
+  modalCheckbox.addEventListener('change', () => {
+    if (modalCheckbox.checked) {
+      discountInput.disabled = false;
+    } else {
+      discountInput.value = '';
+      discountInput.disabled = true;
+    }
+  });
+};
 
 
-modalCheckbox.addEventListener('change', () => {
-  if (modalCheckbox.checked) {
-    discountInput.disabled = false;
-  } else {
-    discountInput.value = '';
-    discountInput.disabled = true;
-  }
-});
-
-
-const modalSum = () => {
+export const modalSum = () => {
   form.addEventListener('change', () => {
     const price = priceInput.value;
     const count = modalCount.value;
@@ -95,12 +94,10 @@ const modalSum = () => {
     `$ ${getTotal(price, count, discount)}`;
   });
 };
-modalSum();
+
 
 export {
   closeModal,
-  deleteControl,
   openModal,
-  addItem,
   addItemPage,
 };

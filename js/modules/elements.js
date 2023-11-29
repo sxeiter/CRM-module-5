@@ -9,8 +9,7 @@ const buttonAdd = document.querySelector('.panel__add-goods');
 const modalOverlay = document.querySelector('.overlay');
 const modalTotalPrice = document.querySelector('.modal__total-price');
 const modalCloseBtn = document.querySelector('.modal__close');
-const tableCellCount = document.querySelector('.table__cell-count');
-const tableCtllPrice = document.querySelector('.table__cell-price');
+
 
 export default {
   modalCount,
@@ -24,6 +23,4 @@ export default {
   modalOverlay,
   modalTotalPrice,
   modalCloseBtn,
-  tableCellCount,
-  tableCtllPrice,
 };
