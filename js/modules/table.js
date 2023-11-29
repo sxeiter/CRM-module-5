@@ -1,7 +1,11 @@
 import {goods} from './goods.js';
 import {calculateTotalPrice} from './calc.js';
 import elements from './elements.js';
-const {tBody} = elements;
+const {tBody, tableTotalPrice} = elements;
+
+export const getTotalTable = () => {
+  tableTotalPrice.textContent = calculateTotalPrice(goods);
+};
 
 
 const removeGoods = (dataId) => {
@@ -22,14 +26,10 @@ export const deleteRow = () => {
       closestRow.remove();
 
       removeGoods(rowProductId);
-      calculateTotalPrice(goods);
+      getTotalTable(goods);
       console.log(goods);
-      // console.log(calculateTotalPrice(goods));
     }
   });
 };
 
 
-calculateTotalPrice(goods);
-
-console.log(calculateTotalPrice(goods));

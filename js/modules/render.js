@@ -1,6 +1,5 @@
 import {getTotal} from './calc.js';
 import {closeModal} from './modal.js';
-import elements from './elements.js';
 
 
 export const createRow = ({id, title, price, category, count, units, discount}) => {

@@ -3,7 +3,7 @@ import {createId} from './render.js';
 import {createRow} from './render.js';
 import {getTotal} from './calc.js';
 import elements from './elements.js';
-import {calculateTotalPrice} from './calc.js';
+import {getTotalTable} from './table.js';
 
 const {
   priceInput,
@@ -69,7 +69,7 @@ const addItem = () => {
     addItemPage(newItem, goods);
     form.reset();
     closeModal();
-    calculateTotalPrice(goods);
+    getTotalTable(goods);
   });
 };
 addItem();

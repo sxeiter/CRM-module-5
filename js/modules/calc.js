@@ -1,6 +1,3 @@
-import elements from './elements.js';
-const {tableTotalPrice} = elements;
-
 export const setDiscount = (discount) =>
   (discount ? (100 - discount) / 100 : 1);
 
@@ -12,20 +9,7 @@ export const getTotal = (price, count, discount) => {
   }
 };
 
-// export const getTotalTable = (prices) => {
-// prices.reduce(
-// (acc, {count, price, discount}) => acc + getTotal(price, count, discount),
-// 0);
-// };
 
-export const calculateTotalPrice = (tableData) => {
-  tableData.reduce((total, item) => {
-    const price = item.price;
-    const count = item.count;
-
-    const totalSum = total + (price * count);
-    return tableTotalPrice.textContent = totalSum;
-  }, 0);
-};
-
-
+export const calculateTotalPrice = (tableData) => tableData.reduce(
+    (acc, {count, price, discount}) => acc + getTotal(price, count, discount),
+    0);
