@@ -1,7 +1,6 @@
 import {goods} from './modules/goods.js';
 import {renderGoods} from './modules/render.js';
-import {deleteRow} from './modules/table.js';
-import {getTotalTable} from './modules/table.js';
+import {deleteRow, getTotalTable, foo} from './modules/table.js';
 import {
   deleteControl,
   addItem,
@@ -13,6 +12,7 @@ import {
   const init = () => {
     renderGoods(goods);
     deleteRow();
+    foo();
     getTotalTable();
     deleteControl();
     addItem();

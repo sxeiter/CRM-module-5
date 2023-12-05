@@ -57,7 +57,6 @@ const addItemPage = (newItem) => {
   goods.push(newItem);
 };
 
-console.log(goods);
 
 export const addItem = () => {
   form.addEventListener('submit', e => {
@@ -82,7 +81,6 @@ export const getDiscount = () => {
     }
   });
 };
-
 
 export const modalSum = () => {
   form.addEventListener('change', () => {

@@ -33,3 +33,27 @@ export const deleteRow = () => {
 };
 
 
+const getPickture = () => {
+  const newWindow = open(
+      'about:blank',
+      '',
+      `popup,
+ width=600,
+ height=600,
+ top=${screen.height / 3},
+ left=${screen.width / 2 + 400}`);
+
+  newWindow.document.body.style.backgroundImage = `url(./img/reno.jpg)`;
+};
+
+
+export const foo = () => {
+  tBody.addEventListener('click', e => {
+    const target = e.target;
+    if (target.closest('.table__btn.table__btn_pick')) {
+      getPickture();
+    }
+  });
+};
+
+
