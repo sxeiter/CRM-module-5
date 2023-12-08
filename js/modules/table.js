@@ -37,8 +37,10 @@ const getPicture = () => {
   const newWindow = window.open(
       'about:blank',
       '',
-      `popup,width=600,height=600,
-      top=${screen.height / 3},left=${screen.width / 2 + 400}`,
+      `popup,width=600,
+      height=600,
+      top=${screen.height / 2 - 400},
+      left=${screen.width / 2 - 200}`,
   );
   const btnPick = document.getElementById('btnPic');
   const imageUrl = btnPick.getAttribute('data-pic');
