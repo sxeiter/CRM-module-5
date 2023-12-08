@@ -33,27 +33,23 @@ export const deleteRow = () => {
 };
 
 
-const getPickture = () => {
-  const newWindow = open(
+const getPicture = () => {
+  const newWindow = window.open(
       'about:blank',
       '',
-      `popup,
- width=600,
- height=600,
- top=${screen.height / 3},
- left=${screen.width / 2 + 400}`);
-
-  newWindow.document.body.style.backgroundImage = `url(./img/reno.jpg)`;
+      `popup,width=600,height=600,
+      top=${screen.height / 3},left=${screen.width / 2 + 400}`,
+  );
+  const btnPick = document.getElementById('btnPic');
+  const imageUrl = btnPick.getAttribute('data-pic');
+  newWindow.document.body.style.backgroundImage = `url(${imageUrl})`;
 };
 
-
-export const foo = () => {
+export const openNewWindowBtn = () => {
   tBody.addEventListener('click', e => {
     const target = e.target;
-    if (target.closest('.table__btn.table__btn_pick')) {
-      getPickture();
+    if (target.matches('.table__btn.table__btn_pic')) {
+      getPicture();
     }
   });
 };
-
-
